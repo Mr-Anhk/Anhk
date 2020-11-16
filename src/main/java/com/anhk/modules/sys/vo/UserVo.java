@@ -40,7 +40,6 @@ public class UserVo implements Serializable {
      */
     private Integer status;
     private String statuName;
-
     /**
      * 角色ID列表
      */

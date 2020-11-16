@@ -35,6 +35,8 @@ public class SysDeptController extends AbstractController {
 
     /**
      * 列表
+     *
+     * @return
      */
     @RequestMapping("/list")
     @RequiresPermissions("sys:dept:list")
@@ -44,12 +46,13 @@ public class SysDeptController extends AbstractController {
 
     /**
      * 选择部门(添加、修改菜单)
+     *
+     * @return
      */
     @RequestMapping("/select")
     @RequiresPermissions("sys:dept:select")
     public ResultVo select() {
         List<SysDeptEntity> deptList = sysDeptService.queryList(new HashMap<String, Object>());
-
         //添加一级部门
         if (getUserId() == Constant.SUPER_ADMIN) {
             SysDeptEntity root = new SysDeptEntity();
@@ -59,12 +62,13 @@ public class SysDeptController extends AbstractController {
             root.setOpen(true);
             deptList.add(root);
         }
-
         return ResultVo.ok().put("deptList", deptList);
     }
 
     /**
      * 上级部门Id(管理员则为0)
+     *
+     * @return
      */
     @RequestMapping("/info")
     @RequiresPermissions("sys:dept:list")
@@ -78,60 +82,65 @@ public class SysDeptController extends AbstractController {
                     parentId = sysDeptEntity.getParentId();
                     continue;
                 }
-
-                if (parentId > sysDeptEntity.getParentId().longValue()) {
+                if (parentId > sysDeptEntity.getParentId()) {
                     parentId = sysDeptEntity.getParentId();
                 }
             }
-            deptId = parentId;
+            if (parentId != null) {
+                deptId = parentId;
+            }
         }
-
         return ResultVo.ok().put("deptId", deptId);
     }
 
     /**
      * 信息
+     *
+     * @param deptId
+     * @return
      */
     @RequestMapping("/info/{deptId}")
     @RequiresPermissions("sys:dept:info")
     public ResultVo info(@PathVariable("deptId") Long deptId) {
         SysDeptEntity dept = sysDeptService.getById(deptId);
-
         return ResultVo.ok().put("dept", dept);
     }
 
     /**
-     * 保存
+     * 新增部门信息
+     *
+     * @param dept
+     * @return
      */
     @RequestMapping("/save")
     @RequiresPermissions("sys:dept:save")
     public ResultVo save(@RequestBody SysDeptEntity dept) {
-        sysDeptService.save(dept);
-
-        return ResultVo.ok();
+        if (dept == null) {
+            return ResultVo.error("部门信息不能为空");
+        }
+        return sysDeptService.add(dept);
     }
 
     /**
      * 修改
+     *
+     * @param dept
+     * @return
      */
     @RequestMapping("/update")
     @RequiresPermissions("sys:dept:update")
     public ResultVo update(@RequestBody SysDeptEntity dept) {
-        //获取此部门的所有子级部门ID
-        List<Long> subDeptIdList = sysDeptService.getSubDeptIdList(dept.getDeptId());
-        //判断，上级部门是否是自己的子级部门
-        if (subDeptIdList.contains(dept.getParentId()) || dept.getDeptId().equals(dept.getParentId())) {
-            return ResultVo.error("上级部门不能为自己或自己的子级部门");
+        if (dept == null) {
+            return ResultVo.error("部门信息不能为空");
         }
-        boolean update = sysDeptService.updateById(dept);
-        if (!update) {
-            return ResultVo.error("更新部门信息失败");
-        }
-        return ResultVo.ok();
+        return sysDeptService.update(dept);
     }
 
     /**
      * 删除
+     *
+     * @param deptId
+     * @return
      */
     @RequestMapping("/delete")
     @RequiresPermissions("sys:dept:delete")
@@ -149,12 +158,10 @@ public class SysDeptController extends AbstractController {
         if (deptList.size() > 0) {
             return ResultVo.error("请先删除子部门");
         }
-
         boolean remove = sysDeptService.removeById(deptId);
         if (!remove) {
             return ResultVo.error("删除部门信息失败");
         }
-
         return ResultVo.ok();
     }
 

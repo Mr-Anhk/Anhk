@@ -68,12 +68,10 @@ public class SysUserController extends AbstractController {
     @ApiOperation(value = "修改密码")
     public ResultVo password(String password, String newPassword) {
         Assert.isBlank(newPassword, "新密码不为能空");
-
         //原密码
         password = ShiroUtils.sha256(password, getUser().getSalt());
         //新密码
         newPassword = ShiroUtils.sha256(newPassword, getUser().getSalt());
-
         //更新密码
         boolean flag = sysUserService.updatePassword(getUserId(), password, newPassword);
         if (!flag) {
@@ -89,11 +87,9 @@ public class SysUserController extends AbstractController {
     @RequiresPermissions("sys:user:info")
     public ResultVo info(@PathVariable("userId") Long userId) {
         SysUserEntity user = sysUserService.getById(userId);
-
         //获取用户所属的角色列表
         List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
         user.setRoleIdList(roleIdList);
-
         return ResultVo.ok().put("user", user);
     }
 
@@ -105,10 +101,7 @@ public class SysUserController extends AbstractController {
     @RequiresPermissions("sys:user:save")
     public ResultVo save(@RequestBody SysUserEntity user) {
         ValidatorUtils.validateEntity(user, AddGroup.class);
-
-        sysUserService.saveUser(user);
-
-        return ResultVo.ok();
+        return sysUserService.saveUser(user);
     }
 
     /**
@@ -119,10 +112,7 @@ public class SysUserController extends AbstractController {
     @RequiresPermissions("sys:user:update")
     public ResultVo update(@RequestBody SysUserEntity user) {
         ValidatorUtils.validateEntity(user, UpdateGroup.class);
-
-        sysUserService.update(user);
-
-        return ResultVo.ok();
+        return sysUserService.update(user);
     }
 
     /**
@@ -135,13 +125,13 @@ public class SysUserController extends AbstractController {
         if (ArrayUtils.contains(userIds, 1L)) {
             return ResultVo.error("系统管理员不能删除");
         }
-
         if (ArrayUtils.contains(userIds, getUserId())) {
             return ResultVo.error("当前用户不能删除");
         }
-
-        sysUserService.removeByIds(Arrays.asList(userIds));
-
+        boolean remove = sysUserService.removeByIds(Arrays.asList(userIds));
+        if (!remove) {
+            return ResultVo.error("删除用户信息失败");
+        }
         return ResultVo.ok();
     }
 
@@ -187,6 +177,7 @@ public class SysUserController extends AbstractController {
 
     /**
      * 根据角色ID查询用户信息
+     *
      * @param params
      * @return
      */

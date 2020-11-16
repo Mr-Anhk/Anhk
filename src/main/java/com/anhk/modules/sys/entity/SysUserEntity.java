@@ -2,6 +2,7 @@ package com.anhk.modules.sys.entity;
 
 import com.anhk.common.validator.group.AddGroup;
 import com.anhk.common.validator.group.UpdateGroup;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -29,7 +30,7 @@ public class SysUserEntity implements Serializable {
 	/**
 	 * 用户ID
 	 */
-	@TableId
+	@TableId(type = IdType.AUTO)
 	private Long userId;
 
 	/**
