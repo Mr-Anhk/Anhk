@@ -80,12 +80,12 @@ var vm = new Vue({
                 contentType: "application/json",
 			    data: JSON.stringify(vm.schedule),
 			    success: function(r){
-			    	if(r.code === 0){
+			    	if(r.status === 0){
 						alert('操作成功', function(index){
 							vm.reload();
 						});
 					}else{
-						alert(r.msg);
+						alert(r.message);
 					}
 				}
 			});
@@ -103,12 +103,12 @@ var vm = new Vue({
                     contentType: "application/json",
 				    data: JSON.stringify(jobIds),
 				    success: function(r){
-						if(r.code == 0){
+						if(r.status == 0){
 							alert('操作成功', function(index){
 								vm.reload();
 							});
 						}else{
-							alert(r.msg);
+							alert(r.message);
 						}
 					}
 				});
@@ -127,12 +127,12 @@ var vm = new Vue({
                     contentType: "application/json",
 				    data: JSON.stringify(jobIds),
 				    success: function(r){
-						if(r.code == 0){
+						if(r.status == 0){
 							alert('操作成功', function(index){
 								vm.reload();
 							});
 						}else{
-							alert(r.msg);
+							alert(r.message);
 						}
 					}
 				});
@@ -151,12 +151,12 @@ var vm = new Vue({
                     contentType: "application/json",
 				    data: JSON.stringify(jobIds),
 				    success: function(r){
-						if(r.code == 0){
+						if(r.status == 0){
 							alert('操作成功', function(index){
 								vm.reload();
 							});
 						}else{
-							alert(r.msg);
+							alert(r.message);
 						}
 					}
 				});
@@ -175,12 +175,12 @@ var vm = new Vue({
                     contentType: "application/json",
 				    data: JSON.stringify(jobIds),
 				    success: function(r){
-						if(r.code == 0){
+						if(r.status == 0){
 							alert('操作成功', function(index){
 								vm.reload();
 							});
 						}else{
-							alert(r.msg);
+							alert(r.message);
 						}
 					}
 				});

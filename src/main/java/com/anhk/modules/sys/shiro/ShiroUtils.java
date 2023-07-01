@@ -57,7 +57,7 @@ public class ShiroUtils {
 	public static String getKaptcha(String key) {
 		Object kaptcha = getSessionAttribute(key);
 		if(kaptcha == null){
-			throw new BusinessException("验证码已失效");
+			throw new BusinessException(400, "验证码已失效");
 		}
 		getSession().removeAttribute(key);
 		return kaptcha.toString();

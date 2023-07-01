@@ -10,6 +10,16 @@ import java.util.regex.Pattern;
  * @author 虎哥
  */
 public class RegexUtils {
+
+    /**
+     * 手机号正则
+     */
+    public static final String PHONE_REGEX = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$";
+    /**
+     * 邮箱正则
+     */
+    public static final String EMAIL_REGEX = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+
     /**
      * 是否符合手机格式
      *
@@ -17,7 +27,7 @@ public class RegexUtils {
      * @return true:符合，false：不符合
      */
     public static boolean isPhone(String phone) {
-        return matches(phone, RegexPatterns.PHONE_REGEX);
+        return matches(phone, PHONE_REGEX);
     }
 
     /**
@@ -27,7 +37,7 @@ public class RegexUtils {
      * @return true:符合，false：不符合
      */
     public static boolean isEmail(String email) {
-        return matches(email, RegexPatterns.EMAIL_REGEX);
+        return matches(email, EMAIL_REGEX);
     }
 
     private static boolean matches(String str, String regex) {
@@ -106,5 +116,4 @@ public class RegexUtils {
         String reg = "^^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*_-]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*_-]+$)(?![\\d!@#$%^&*_-]+$)[a-zA-Z\\d!@#$%^&*_-]+$";
         return val.matches(reg);
     }
-
 }

@@ -12,13 +12,13 @@ public abstract class Assert {
 
     public static void isBlank(String str, String message) {
         if (StringUtils.isBlank(str)) {
-            throw new BusinessException(message);
+            throw new BusinessException(400, message);
         }
     }
 
     public static void isNull(Object object, String message) {
         if (object == null) {
-            throw new BusinessException(message);
+            throw new BusinessException(400, message);
         }
     }
 }

@@ -5,16 +5,16 @@ import com.anhk.common.utils.ConfigConstant;
 import com.anhk.common.utils.Constant;
 import com.anhk.common.utils.PageUtils;
 import com.anhk.common.utils.ResultVo;
+import com.anhk.common.validator.ValidatorUtils;
 import com.anhk.common.validator.group.AliyunGroup;
 import com.anhk.common.validator.group.QcloudGroup;
 import com.anhk.common.validator.group.QiniuGroup;
-import com.anhk.modules.sys.service.SysConfigService;
-import com.google.gson.Gson;
-import com.anhk.common.validator.ValidatorUtils;
 import com.anhk.modules.oss.cloud.CloudStorageConfig;
 import com.anhk.modules.oss.cloud.OSSFactory;
 import com.anhk.modules.oss.entity.SysOssEntity;
 import com.anhk.modules.oss.service.SysOssService;
+import com.anhk.modules.sys.service.SysConfigService;
+import com.google.gson.Gson;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -99,7 +99,7 @@ public class SysOssController {
     @RequiresPermissions("sys:oss:all")
     public ResultVo upload(@RequestParam("file") MultipartFile file) throws Exception {
         if (file.isEmpty()) {
-            throw new BusinessException("上传文件不能为空");
+            throw new BusinessException(400, "上传文件不能为空");
         }
 
         //上传文件

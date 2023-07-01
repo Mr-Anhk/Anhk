@@ -5,12 +5,12 @@ server:
     max-threads: 1000
     min-spare-threads: 30
   port: 8080
-  servlet:
-    context-path: /anhk_admin
+#  servlet:
+#    context-path: /anhk
 
 spring:
   profiles:
-    active: dev
+    active: prod
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8

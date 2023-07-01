@@ -52,7 +52,7 @@ public class QcloudCloudStorageService extends CloudStorageService {
 
         JSONObject jsonObject = JSONObject.fromObject(response);
         if(jsonObject.getInt("code") != 0) {
-            throw new BusinessException("文件上传失败，" + jsonObject.getString("message"));
+            throw new BusinessException(400, "文件上传失败，" + jsonObject.getString("message"));
         }
 
         return config.getQcloudDomain() + path;
@@ -64,7 +64,7 @@ public class QcloudCloudStorageService extends CloudStorageService {
             byte[] data = IOUtils.toByteArray(inputStream);
             return this.upload(data, path);
         } catch (IOException e) {
-            throw new BusinessException("上传文件失败", e);
+            throw new BusinessException(500, "上传文件失败", e);
         }
     }
 

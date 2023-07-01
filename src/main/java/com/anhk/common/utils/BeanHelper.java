@@ -20,7 +20,7 @@ public class BeanHelper {
             return t;
         } catch (Exception e) {
             log.error("【数据转换】数据转换出错，目标对象{}构造函数异常", target.getName(), e);
-//            throw new LyException(ExceptionEnum.DATA_TRANSFER_ERROR);
+            //throw new LyException(ExceptionEnum.DATA_TRANSFER_ERROR);
             return null;
         }
     }
@@ -30,7 +30,7 @@ public class BeanHelper {
             return sourceList.stream().map(s -> copyProperties(s, target)).collect(Collectors.toList());
         } catch (Exception e) {
             log.error("【数据转换】数据转换出错，目标对象{}构造函数异常", target.getName(), e);
-//            throw new LyException(ExceptionEnum.DATA_TRANSFER_ERROR);
+            //throw new LyException(ExceptionEnum.DATA_TRANSFER_ERROR);
             return null;
         }
     }

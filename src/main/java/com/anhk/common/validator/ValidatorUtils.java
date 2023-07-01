@@ -33,7 +33,7 @@ public class ValidatorUtils {
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
         if (!constraintViolations.isEmpty()) {
         	ConstraintViolation<Object> constraint = (ConstraintViolation<Object>)constraintViolations.iterator().next();
-            throw new BusinessException(constraint.getMessage());
+            throw new BusinessException(400, constraint.getMessage());
         }
     }
 }

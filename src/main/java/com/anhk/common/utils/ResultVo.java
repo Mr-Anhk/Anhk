@@ -12,28 +12,28 @@ public class ResultVo extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 	
 	public ResultVo() {
-		put("code", 0);
-		put("msg", "success");
+		put("status", 0);
+		put("message", "success");
 	}
 	
 	public static ResultVo error() {
 		return error(500, "未知异常，请联系管理员");
 	}
 	
-	public static ResultVo error(String msg) {
-		return error(500, msg);
+	public static ResultVo error(String message) {
+		return error(500, message);
 	}
 	
-	public static ResultVo error(int code, String msg) {
+	public static ResultVo error(int status, String message) {
 		ResultVo r = new ResultVo();
-		r.put("code", code);
-		r.put("msg", msg);
+		r.put("status", status);
+		r.put("message", message);
 		return r;
 	}
 
-	public static ResultVo ok(String msg) {
+	public static ResultVo ok(String message) {
 		ResultVo r = new ResultVo();
-		r.put("msg", msg);
+		r.put("message", message);
 		return r;
 	}
 	

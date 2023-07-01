@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * 处理自定义异常
 	 */
 	@ExceptionHandler(BusinessException.class)
-	public ResultVo handleRRException(BusinessException e){
+	public ResultVo handleBusinessException(BusinessException e){
 		ResultVo r = new ResultVo();
-		r.put("code", e.getCode());
-		r.put("msg", e.getMessage());
+		r.put("status", e.getStatus());
+		r.put("message", e.getMessage());
 
 		return r;
 	}

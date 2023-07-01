@@ -27,12 +27,12 @@ public class RedisAspect {
     @Around("execution(* com.anhk.common.utils.RedisUtils.*(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Object result = null;
-        if(open){
-            try{
+        if (open) {
+            try {
                 result = point.proceed();
-            }catch (Exception e){
+            } catch (Exception e) {
                 logger.error("redis error", e);
-                throw new BusinessException("Redis服务异常");
+                throw new BusinessException(500, "Redis服务异常");
             }
         }
         return result;

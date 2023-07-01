@@ -74,12 +74,12 @@ var vm = new Vue({
                 contentType: "application/json",
 			    data: JSON.stringify(vm.dict),
 			    success: function(r){
-			    	if(r.code === 0){
+			    	if(r.status === 0){
 						alert('操作成功', function(index){
 							vm.reload();
 						});
 					}else{
-						alert(r.msg);
+						alert(r.message);
 					}
 				}
 			});
@@ -97,12 +97,12 @@ var vm = new Vue({
                     contentType: "application/json",
 				    data: JSON.stringify(ids),
 				    success: function(r){
-						if(r.code == 0){
+						if(r.status == 0){
 							alert('操作成功', function(index){
 								$("#jqGrid").trigger("reloadGrid");
 							});
 						}else{
-							alert(r.msg);
+							alert(r.message);
 						}
 					}
 				});

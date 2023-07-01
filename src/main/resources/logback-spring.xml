@@ -167,12 +167,12 @@
 
     <!-- 4. 最终的策略 -->
     <!-- 4.1 开发环境:打印控制台-->
-    <springProfile name="dev,test">
+    <springProfile name="dev">
         <logger name="com.anhk" level="debug"/>
-        <property name="LOG_HOME" value="C:/logs" />
+        <property name="LOG_HOME" value="/logs" />
     </springProfile>
     <!-- 4.2 生产环境:输出到文档 -->
-    <springProfile name="pro">
+    <springProfile name="prod">
         <root level="info">
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />
@@ -180,14 +180,6 @@
             <appender-ref ref="ERROR_FILE" />
             <appender-ref ref="WARN_FILE" />
         </root>
-        <property name="LOG_HOME" value="/home/log" />
+        <property name="LOG_HOME" value="/usr/app/log" />
     </springProfile>
-
-    <root level="info">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="DEBUG_FILE" />
-        <appender-ref ref="INFO_FILE" />
-        <appender-ref ref="WARN_FILE" />
-        <appender-ref ref="ERROR_FILE" />
-    </root>
 </configuration>

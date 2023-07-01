@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>后台管理系统</title>
+  <title>Anhk</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="${request.contextPath}/statics/css/bootstrap.min.css">
@@ -23,7 +23,7 @@
 <body class="hold-transition login-page" style="background-image: url('${request.contextPath}/statics/images/login.jpg');background-size: cover;">
 <div class="login-box" id="rrapp" v-cloak>
   <div class="login-logo">
-    <b style="color: whitesmoke">后台管理系统</b>
+    <b style="color: whitesmoke">Anhk</b>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -100,12 +100,11 @@ var vm = new Vue({
 			    data: data,
 			    dataType: "json",
 			    success: function(result){
-					if(result.code == 0){//登录成功
+					if(result.status == 0){//登录成功
 						parent.location.href ='index.html';
 					}else{
 						vm.error = true;
-						vm.errorMsg = result.msg;
-						
+						vm.errorMsg = result.message;
 						vm.refreshCode();
 					}
 				}
